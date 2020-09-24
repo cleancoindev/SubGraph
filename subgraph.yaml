@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -7,10 +7,11 @@ dataSources:
     network: kovan
     source:
       address: "0xb2c98f7f573bbf653972f030766e36138c82f4a2"
+      startBlock: 21123173
       abi: Contract
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - ChainlinkCancelled
