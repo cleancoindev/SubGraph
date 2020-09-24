@@ -1,0 +1,41 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Contract
+    network: kovan
+    source:
+      address: "0xb2c98f7f573bbf653972f030766e36138c82f4a2"
+      abi: Contract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - ChainlinkCancelled
+        - ChainlinkFulfilled
+        - ChainlinkRequested
+        - ProductAdded
+        - ProxyCreated
+        - Rent
+        - Return
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: ChainlinkCancelled(indexed bytes32)
+          handler: handleChainlinkCancelled
+        - event: ChainlinkFulfilled(indexed bytes32)
+          handler: handleChainlinkFulfilled
+        - event: ChainlinkRequested(indexed bytes32)
+          handler: handleChainlinkRequested
+        - event: ProductAdded(indexed address,indexed uint256,indexed address,uint256,uint256)
+          handler: handleProductAdded
+        - event: ProxyCreated(address)
+          handler: handleProxyCreated
+        - event: Rent(indexed address,indexed uint256,indexed address,address,uint256,uint256,uint256)
+          handler: handleRent
+        - event: Return(indexed address,indexed uint256,address,address)
+          handler: handleReturn
+      file: ./src/mapping.ts
