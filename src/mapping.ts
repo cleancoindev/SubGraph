@@ -1,4 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { BigInt, Bytes } from "@graphprotocol/graph-ts"
 import {
   Contract,
   ChainlinkCancelled,
@@ -25,6 +25,7 @@ export function handleProductAdded(event: ProductAdded): void {
   product.price = event.params.price
   product.duration = event.params.duration
   product.available = true
+  product.borrower = null
   product.borrowedAt = BigInt.fromI32(0)
   product.collateral = BigInt.fromI32(0);
 
@@ -36,6 +37,7 @@ export function handleProductAdded(event: ProductAdded): void {
   }
   let nftOwned = user.nftOwned
   nftOwned.push(product.id)
+  user.nftOwned = nftOwned
   user.save()
   product.save()
 }
@@ -58,6 +60,7 @@ export function handleRent(event: Rent): void {
   }
   let nftRented = borrower.nftRented
   nftRented.push(product.id)
+  borrower.nftRented = nftRented
   borrower.save()
   product.save()
 }
